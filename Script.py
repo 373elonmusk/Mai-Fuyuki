@@ -1,7 +1,7 @@
 class script(object):
     START_TXT = """<b>Hi {0}, Welcome to {2} !</b>
 
-<blockquote>🎬 I can find and search movie stream and download. Just search movie and series.</blockquote>
+<blockquote>I can find and search movie stream and download. Just search movie and series.</blockquote>
 """
 
 
