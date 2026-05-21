@@ -1,8 +1,7 @@
 class script(object):
-    START_TXT = """<b>Hii {}, Welcome to <a href=https://t.me/{}>{}</a> ! 👋</b>
+    START_TXT = """<b>Hi {}, Welcome to <a href=https://t.me/{}>{}</a> !</b>
 
-<b>🎬 I can find and search movies, stream and download.</b>
-<b>Just search any movie or series and I'm ready!</b>
+<tg-spoiler>🎬 I can find and search movie stream and download. Just search movie and series.</tg-spoiler>
 """
 
 
