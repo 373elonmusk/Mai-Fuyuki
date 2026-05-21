@@ -111,9 +111,9 @@ async def start(client, message):
                     ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await message.reply(
-                text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
+                text=script.START_TXT.format(message.from_user.first_name, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.MARKDOWN,
+                parse_mode=enums.ParseMode.HTML,
                 disable_web_page_preview=True
             )
             return
@@ -124,9 +124,9 @@ async def start(client, message):
                     ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await message.reply(
-                text=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
+                text=script.START_TXT.format(message.from_user.first_name, temp.U_NAME, temp.B_NAME),
                 reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.MARKDOWN,
+                parse_mode=enums.ParseMode.HTML,
                 disable_web_page_preview=True
             )
             return
