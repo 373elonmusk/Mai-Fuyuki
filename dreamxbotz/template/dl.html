@@ -1,210 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALL Movies Studio | {{file_name}}</title>
-    <link rel="stylesheet" href="https://unpkg.com/sheryjs/dist/Shery.css" />
-    <link rel="stylesheet" href="https://biisal.github.io/Resources/StreamCSS.css">
-    <link rel="stylesheet" href="https://biisal.github.io/Resources/playerCss.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{file_name}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <style>
+        :root{--black:#000;--dark:#0a0a0a;--dim:#111;--surface:#181818;--edge:#252525;--mid:#3a3a3a;--muted:#6a6a6a;--silver:#a0a0a0;--light:#d4d4d4;--white:#f5f5f5;--pure:#fff}
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{font-family:'DM Mono',monospace;background:var(--black);color:var(--light);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.35}
 
+        header{display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:52px;background:rgba(0,0,0,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--edge);flex-shrink:0}
+        .brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;letter-spacing:.2em;color:var(--white);text-transform:uppercase;text-decoration:none}
+        .htag{font-size:.6rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+
+        main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem}
+
+        .card{width:100%;max-width:520px;background:var(--dim);border:1px solid var(--edge);border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.02),0 24px 64px rgba(0,0,0,.8);overflow:hidden;animation:rise .4s ease-out}
+        @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+        .card-top{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--edge)}
+
+        .file-icon{width:48px;height:48px;background:var(--surface);border:1px solid var(--edge);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem}
+        .file-icon svg{color:var(--silver)}
+
+        .file-name{font-family:'Cormorant Garamond',serif;font-size:clamp(.95rem,2.5vw,1.35rem);font-weight:400;color:var(--white);line-height:1.35;word-break:break-word;margin-bottom:.75rem}
+
+        .meta-row{display:flex;gap:1.25rem;flex-wrap:wrap}
+        .meta-item{display:flex;align-items:center;gap:.35rem;font-size:.6rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
+        .meta-item svg{width:11px;height:11px;flex-shrink:0}
+
+        .card-body{padding:1.5rem 2rem}
+
+        .dl-btn{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.85rem 1.25rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.15em;font-weight:500;text-transform:uppercase;background:var(--white);color:var(--black);border:1px solid var(--white);border-radius:2px;cursor:pointer;transition:all .18s ease;margin-bottom:.5rem}
+        .dl-btn:hover{background:var(--pure);box-shadow:0 4px 24px rgba(255,255,255,.2);transform:translateY(-1px)}
+        .dl-btn svg{width:14px;height:14px;flex-shrink:0}
+
+        .copy-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;padding:.7rem 1rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;background:var(--surface);color:var(--silver);border:1px solid var(--edge);border-radius:2px;cursor:pointer;transition:all .18s ease}
+        .copy-btn:hover{background:var(--dim);border-color:var(--mid);color:var(--white)}
+        .copy-btn svg{width:13px;height:13px;flex-shrink:0}
+
+        .copy-toast{display:none;align-items:center;justify-content:center;gap:.35rem;margin-top:.5rem;font-size:.6rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+        .copy-toast.show{display:flex}
+
+        .url-box{margin-top:.875rem;padding:.625rem .875rem;background:var(--surface);border:1px solid var(--edge);border-radius:2px;font-size:.6rem;letter-spacing:.05em;color:var(--muted);word-break:break-all;line-height:1.6;user-select:all;cursor:text}
+
+        footer{text-align:center;padding:1.5rem;border-top:1px solid var(--edge);font-size:.58rem;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;flex-shrink:0}
+    </style>
 </head>
-<!-- this code is written by @biisal tg:biisal-files  -->
-<!-- stealing credit doesn't make you developer..so try to give full credit to the developer 😊 u will not loose anything for giving proper credit.   -->
-
 <body>
-    <nav>
-        <div class="nleft">
-            <a href="https://t.me/dreamcinezone">
-                <!-- if u are trying to change the header name please remove the title text from bottom line  -->
-                <h3 id="heading" style="z-index: 100;" class="magnet">dreamcinezone </h3>
-            </a>
-        </div>
-        <div class="nryt">
-            <a class="home-btn magnet" href="#main" onclick="toggleWidthnav(this)">Home</a>
 
-            <a href="#sec1" class="about-btn magnet" onclick="toggleWidthnav(this)">About</a>
-        </div>
-    </nav>
-    <center>
-        <div class="about-nav">
-            <a href="#sec1" class="wlcm magnet" onclick="toggleWidth(this)">Welcome</a>
-            <a href="#sec2" class="abt-chnl magnet" onclick="toggleWidth(this)">Channels</a>
-            <a href="#sec3" class="magnet bot-btn" onclick="toggleWidth(this) , bot_btn_clicked()">Bots</a>
-            <a href="#sec4" class="magnet contact-btn" onclick="toggleWidth(this)">Let's Talk</a>
-        </div>
-    </center>
-    <!-- this code is written by @biisal tg:biisal-files  -->
-    <!-- stealing credit doesn't make you developer..so try to give full credit to the developer 😊 u will not loose anything for giving proper credit.   -->
+<header>
+    <span class="brand">Download</span>
+    <span class="htag">Private</span>
+</header>
 
-    <div class="outer">
-        <div class="inner">
-            <div class="main" id="main">
-                <video id="player" class="player" src="{{file_url}}" type="video/mp4" playsinline controls
-                    width="100%"></video>
-                <div class="player"></div>
-                <div class="file-name">
-                    <h4>File name : </h4>
-                    <br>
-                    <p id="myDiv">{{file_name}}</p>
-                </div>
-                <div class="downloadBtn">
-                    <button class="magnet" onclick="vlc_player()"><img src="https://i.postimg.cc/15TQ4y7B/vlc.png"
-                            alt="">watch in VLC PLAYER</button>
-                    <button class="magnet" onclick="mx_player()"><img src="https://i.postimg.cc/sx4Msv4T/mx.png"
-                            alt="">watch in MX PLAYER</button>
-                    <button class="magnet" onclick="playit_player()"><img src="https://i.postimg.cc/RVGWYJFF/playit.png"
-                            alt="">watch in PLAYit
-                        PLAYER</button>
-                    <button class="magnet" onclick="km_player()"><img src="https://i.postimg.cc/wT9tFQ9Z/km.png"
-                            alt="">watch in KM PLAYER</button>
-                    <button class="magnet" onclick="s_player()"><img src="https://i.postimg.cc/XYJr6NGg/s.png"
-                            alt="">watch in S PLAYER</button>
-                    <button class="magnet" onclick="hd_player()"><img src="https://i.postimg.cc/rFT43LNh/hd.png"
-                            alt="">watch in HD
-                        PLAYER(4K)</button>
-                    <button class="magnet" onclick="bisalDownload()"><img style="height: 35px;"
-                            src="https://i.postimg.cc/Zncc9YLq/Pngtree-download-icon-3581467.png" alt="">download video
-                    </button>
-                </div>
-
+<main>
+    <div class="card">
+        <div class="card-top">
+            <div class="file-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+                    <polyline points="13 2 13 9 20 9"/>
+                </svg>
             </div>
-            <div class="abt">
-                <div class="about">
-                    <div class="about-dets">
-                        <div class="abt-sec" id="sec1" style="padding: 160px 30px;">
-                            <h1 style="text-align: center;">WELCOME TO OUR <Span>STREAMING</Span> PAGE</h1>
-                            <p style="text-align: center; line-height: 2;word-spacing: 2px;  letter-spacing: 0.8px;">
-                                We're
-                                thrilled to have <span>you</span> here.
-                                Get ready for an
-                                amazing <span>experience</span>
-                                filled with <span>entertainment</span>, <span>fun</span>, and <span>surprises</span>.
-                                Grab
-                                your snacks, sit back, and <span>enjoy</span> the show!
-                            </p>
-                        </div>
-                        <div class="abt-sec" id="sec2">
-                            <h1>OUR ALL <span>CHANNELS</span> LIST</h1>
-                            <div class="links chnl-link">
-                                <a class="magnet" href="https://t.me/dreamcinezone"><button>Update Channel </button></a>
-                                <a class="magnet" href="https://t.me/dreamcinezone"><button> Movie Request Group </button></a>
-                                <a class="magnet" href="#https://youtube.com/@dreamcinezone0"><button>YouTube Channel </button></a>
-                            </div>
-                        </div>
-                        <div class="abt-sec" id="sec3">
-                            <h1>OUR ALL <span>BOTS</span> LIST</h1>
-                            <div class="links bot-link">
-                                <a class="magnet" href="https://t.me/"><button>Chat Gpt Bot
-                                        </button></a>
-                                <a class="magnet" href="https://t.me/"><button>reaction Bot 
-                                        </button></a>
-                            </div>
-                        </div>
-                        <div class="abt-sec" id="sec4">
-                            <!-- this code is written by @biisal tg:biisal-files  -->
-                            <!-- stealing credit doesn't make you developer..so try to give full credit to the developer 😊 u will not loose anything for giving proper credit.   -->
-
-                            <p style="text-align: center;">We Can Tal'k For Your Support And You Can Report Through
-                                Telegram</p>
-                            <div class="links contact">
-                                <a href="https://t.me/Contact_dreamcinezone_bot"><button>Contact</button></a>
-                            </div>
-                        </div>
-                    </div>
+            <div class="file-name" id="fname">{{file_name}}</div>
+            <div class="meta-row">
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="8" x2="12" y2="12"/>
+                        <line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                    {{file_size}}
+                </div>
+                <div class="meta-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                    Ready
                 </div>
             </div>
         </div>
-        <footer>
-            <div class="mid">
-                <h1 class="mid-text">VISIT <a href="#sec3" onclick="bot_btn_clicked()"><span>OUR BOTS LIST</span></a>
-                    FOR
-                    MORE
-                    INFO</h1>
+
+        <div class="card-body">
+            <button class="dl-btn" onclick="doDownload()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download File
+            </button>
+
+            <button class="copy-btn" onclick="copyUrl()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                Copy Link
+            </button>
+
+            <div class="copy-toast" id="toast">
+                <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Copied to clipboard
             </div>
 
-            <div class="last-text">
-                <p style="font-weight: 500;">
-                    Welcome To Our Online Streaming Platform! Our Website Allows Users To Generate Streamable Links For
-                    Various Files Using Telegram Bots. Please Note That We Are Not Responsible For The Content Shared Or
-                    Streamed Through Our Service. Users Are Encouraged To Respect Copyright Laws And Adhere To Our
-                    Community
-                    Guidelines. Enjoy Easy, Hassle-Free File Streaming.
-                </p>
-            </div>
-            <center>
+            <div class="url-box" id="urlbox">{{file_url}}</div>
+        </div>
+    </div>
+</main>
 
-                <div class="movie-cont">
-                    <a href="https://t.me/dreamcinezone">
-                        <div class="movieSug">
-                            <div class="movieDets">
+<footer>Download &mdash; &copy; 2026</footer>
 
-                            </div>
-                            <div class="movieimg">
-                                <img src="">
-                            </div>
-                        </div>
-                    </a>
-                    <div class="low-width-movie-dets">
-                        <div class="movieStsBar">
-                            <div class="movieDets-mini">
+<script>
+    var FILE_URL="{{file_url}}",FILE_NAME="{{file_name}}";
 
-                            </div>
-                        </div>
-                    </div>
-                    <button class="ranMovBtn" onclick="getDets()">Get More Movies Suggestion</button>
-                </div>
+    function doDownload(){
+        var a=document.createElement("a");
+        a.href=FILE_URL;a.download=FILE_NAME;
+        document.body.appendChild(a);a.click();document.body.removeChild(a);
+    }
 
-            </center>
-            <!-- this code is written by @biisal tg:biisal-files  -->
-            <!-- stealing credit doesn't make you developer..so try to give full credit to the developer 😊 u will not loose anything for giving proper credit.   -->
+    function copyUrl(){
+        if(navigator.clipboard){
+            navigator.clipboard.writeText(FILE_URL).then(showToast,fallback);
+        } else { fallback(); }
+    }
 
+    function fallback(){
+        var box=document.getElementById("urlbox");
+        var range=document.createRange();
+        range.selectNodeContents(box);
+        var sel=window.getSelection();
+        sel.removeAllRanges();sel.addRange(range);
+        try{document.execCommand("copy");showToast();}catch(e){}
+        sel.removeAllRanges();
+    }
 
-            <center>
-                <div class="copyright">
-                    <h5 class="text-center">Copyright © 2024 <a href="https://t.me/dreamcinezone"><span
-                                style="font-weight: 700;">dreamcinezone </span></a>. All
-                        Rights Reserved.</h5>
-                    <div class="icons">
-                        <a href="https://t.me/dreamcinezone"><i class="fa-brands fa-telegram fa-lg"></i></a>
-                        
-                    </div>
-                    <h4 style="font-weight: 700;">This Page Is Made By <a
-                            href="https://t.me/dreamcinezone"><span>dreamcinezone </span></a></h4>
-                </div>
-            </center>
-        </footer>
+    function showToast(){
+        var t=document.getElementById("toast");
+        t.classList.add("show");
+        setTimeout(function(){t.classList.remove("show");},2000);
+    }
+
+    function cleanName(){
+        var el=document.getElementById("fname");
+        if(!el)return;
+        el.textContent=el.textContent.replace(/\./g," ").replace(/[_\[\]{}]/g," ").replace(/\s+/g," ").trim();
+    }
+
+    if(document.readyState==="loading"){
+        document.addEventListener("DOMContentLoaded",cleanName);
+    } else { cleanName(); }
+</script>
 </body>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.155.0/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/automat/controlkit.js@master/bin/controlKit.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sheryjs/dist/Shery.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const uncopyableElement = document.querySelector(".uncopyable");
-
-        uncopyableElement.addEventListener("selectstart", function (event) {
-            event.preventDefault();
-        });
-    });
-</script>
-<script src="js/wow.min.js"></script>
-<script>
-    new WOW().init();
-</script>
-<script src="https://cdn.plyr.io/3.6.9/plyr.js"></script>
-<script src="https://biisal.github.io/Resources/StreamJs.js"></script>
-<script src="script.js"></script>
-
 </html>
