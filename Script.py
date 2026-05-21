@@ -1,9 +1,8 @@
 class script(object):
-    START_TXT = """<b><u>🚩 ᴊᴀɪ ꜱʜʀɪ ʀᴀᴍ 🚩</u></b>
+    START_TXT = """<b>Hii {}, Welcome to <a href=https://t.me/{}>{}</a> ! 👋</b>
 
-<b>ʜᴇʏ {}, {}</b>
-
-<b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ.</b>
+<b>🎬 I can find and search movies, stream and download.</b>
+<b>Just search any movie or series and I'm ready!</b>
 """
 
 
